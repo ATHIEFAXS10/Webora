@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webora – Luxury Web Development</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== BASE STYLES ===== */
+    :root {
+      /* Apple-inspired liquid glass color scheme */
+      --bg-primary: #1a1a1a;    /* Dark background */
+      --bg-secondary: #000000;  /* Black background */
+      --text-primary: #ffffff;  /* White text */
+      --text-secondary: rgba(255, 255, 255, 0.85);
+      --accent: rgba(255, 255, 255, 0.4);  /* White accent with transparency */
+      --glass-bg: rgba(255, 255, 255, 0.1);  /* Apple-style glass background */
+      --glass-border: rgba(255, 255, 255, 0.15);  /* Apple-style glass border */
+      --glass-highlight: rgba(255, 255, 255, 0.2);  /* Apple-style glass highlight */
+      --shadow-subtle: 0 8px 32px rgba(0, 0, 0, 0.15);
+      --shadow-strong: 0 12px 36px rgba(0, 0, 0, 0.25);
+      --border-radius: 22px;
+      --border-radius-sm: 10px;
+      --font-heading: 'Poppins', sans-serif;
+      --font-body: 'Poppins', sans-serif;
+      --transition-fast: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      --transition-medium: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      --transition-slow: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 2rem;
+      --spacing-lg: 4rem;
+      --spacing-xl: 8rem;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      letter-spacing: 0.05em; /* Letter spacing for all text */
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    /* Background with mountains */
+    body {
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+      margin: 0;
+      min-height: 100vh;
+      background-color: var(--bg-primary);
+      position: relative;
+    }
+
+    /* Background overlay with mountains */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 0.4; /* Subtle background */
+      z-index: -2;
+    }
+
+    /* Color overlay to match our palette */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg, 
+        rgba(26, 26, 26, 0.9) 0%, 
+        rgba(0, 0, 0, 0.85) 100%
+      );
+      z-index: -1;
+    }
+
+    .container {
+      width: 95%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-sm);
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      font-weight: 300; /* Light weight for headings */
+      line-height: 1.2;
+      letter-spacing: 0.07em; /* More letter spacing for headings */
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: var(--spacing-md);
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: var(--spacing-md);
+    }
+
+    h3 {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    p {
+      font-weight: 300;
+      margin-bottom: var(--spacing-md);
+      font-size: 1.05rem;
+      letter-spacing: 0.06em; /* Slightly more spacing for paragraphs */
+    }
+
+    .lead {
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    strong {
+      font-weight: 500;
+    }
+
+    .accent-text {
+      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 400;
+    }
+
+    /* Bullet point styling */
+    .feature-list {
+      list-style: none;
+      margin: 0 0 var(--spacing-md);
+      padding: 0;
+      text-align: left;
+    }
+
+    .feature-list li {
+      padding-left: 30px;
+      position: relative;
+      margin-bottom: var(--spacing-sm);
+      font-size: 1rem;
+      font-weight: 300;
+    }
+
+    .feature-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    /* ===== UTILITIES ===== */
+    /* Apple-style glass effect */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-subtle);
+      transition: var(--transition-medium);
+    }
+
+    .glass:hover {
+      box-shadow: var(--shadow-strong);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ===== HEADER & NAVIGATION ===== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      z-index: 1000;
+      background: rgba(26, 26, 26, 0.5);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      transition: var(--transition-medium);
+    }
+
+    header.expanded {
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    header.scrolled {
+      background: rgba(0, 0, 0, 0.75);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+      padding: 0 var(--spacing-md);
+    }
+
+    /* Original logo style restored */
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 3rem; /* Increased size */
+      font-weight: 200; /* Thinner weight */
+      letter-spacing: 0.08em; /* More letter spacing */
+      color: #fff; /* Keeping the company name white */
+      text-decoration: none;
+      position: relative;
+      z-index: 1001;
+      transition: var(--transition-fast);
+    }
+
+    .logo:hover {
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+
+    .menu-toggle {
+      display: block;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      z-index: 1001;
+      width: 36px;
+      height: 30px;
+      padding: 0;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 36px;
+      height: 2px;
+      background: #fff;
+      margin: 7px 0;
+      transition: var(--transition-fast);
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+      width: 30px;
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+      width: 30px;
+    }
+
+    /* Full-screen navigation */
+    .full-nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-medium);
+      z-index: 1000;
+    }
+
+    .full-nav.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .full-nav a {
+      font-family: var(--font-heading);
+      font-size: clamp(1.5rem, 3vw, 2.2rem); /* Smaller font size for menu items */
+      font-weight: 300; /* Light weight */
+      color: #fff;
+      text-decoration: none;
+      margin: var(--spacing-sm) 0;
+      position: relative;
+      transition: var(--transition-medium);
+      transform: translateY(30px);
+      opacity: 0;
+      display: inline-block;
+      letter-spacing: 0.08em;
+    }
+
+    .full-nav.active a {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .full-nav.active a:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+
+    .full-nav.active a:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+
+    .full-nav.active a:nth-child(3) {
+      transition-delay: 0.3s;
+    }
+
+    .full-nav.active a:nth-child(4) {
+      transition-delay: 0.4s;
+    }
+
+    .full-nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 1px;
+      background: #fff;
+      transition: width 0.4s ease;
+    }
+
+    .full-nav a:hover {
+      opacity: 0.8;
+      transform: translateY(-5px);
+    }
+
+    .full-nav a:hover::after {
+      width: 100%;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      margin: 0 auto;
+      width: 95%;
+      max-width: 1400px;
+      margin-top: 80px;
+      padding: var(--spacing-lg) 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: var(--spacing-xl) var(--spacing-md);
+      max-width: 650px;
+    }
+
+    /* Liquid shape for Hero section background - Apple style */
+    .liquid-shape {
+      position: absolute;
+      right: -5%;
+      bottom: -10%;
+      width: 65%;
+      height: 80%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, rgba(26,26,26,0) 70%);
+      opacity: 0.7;
+      filter: blur(40px);
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      animation: morphing 15s ease-in-out infinite alternate;
+    }
+
+    @keyframes morphing {
+      0% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        transform: translate(0, 0) rotate(0deg);
+      }
+      50% {
+        border-radius: 60% 40% 40% 60% / 70% 40% 60% 30%;
+        transform: translate(5px, 10px) rotate(2deg);
+      }
+      100% {
+        border-radius: 40% 60% 60% 40% / 40% 60% 40% 60%;
+        transform: translate(-5px, -10px) rotate(-2deg);
+      }
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 3rem;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 1.05rem;
+      letter-spacing: 0.07em;
+      transition: var(--transition-medium);
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.15);
+      transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: -1;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-primary:hover::before {
+      width: 100%;
+    }
+
+    /* ===== FEATURES SECTION ===== */
+    .features {
+      padding: var(--spacing-xl) 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .features::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(0deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      opacity: 0.3;
+      z-index: -1;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* Force 4 columns layout */
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-lg);
+    }
+
+    .feature-card {
+      padding: var(--spacing-md) var(--spacing-sm); /* Reduced padding to fit all cards */
+      text-align: center;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      color: var(--text-primary);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--glass-bg);
+      border-radius: var(--border-radius);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon {
+      width: 80px; /* Smaller icons to fit */
+      height: 80px;
+      margin: 0 auto var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--glass-highlight);
+      border-radius: 50%;
+      transition: var(--transition-medium);
+      position: relative;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .icon {
+      width: 40px; /* Smaller icons */
+      height: 40px;
+      fill: white; /* White silhouette icons */
+      transition: var(--transition-medium);
+    }
+
+    .feature-card:hover .icon {
+      transform: scale(1.1);
+    }
+    
+    /* ===== PRICING SECTION ===== */
+    .pricing {
+      padding: var(--spacing-xl) 0;
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+    }
+    
+    .pricing::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        rgba(255,255,255,0) 0%, 
+        rgba(255,255,255,0.3) 50%, 
+        rgba(255,255,255,0) 100%);
+    }
+    
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-lg);
+      margin-top: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .pricing-tier {
+      display: flex;
+      flex-direction: column;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-subtle);
+      padding: var(--spacing-lg) var(--spacing-md);
+      transition: var(--transition-medium);
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+    }
+    
+    .pricing-tier:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .tier-highlight {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3));
+    }
+    
+    .tier-name {
+      font-size: 1.8rem;
+      font-weight: 300;
+      margin-bottom: var(--spacing-sm);
+      position: relative;
+    }
+    
+    .tier-price {
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: var(--spacing-md);
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .tier-price .currency {
+      font-size: 1.5rem;
+      vertical-align: top;
+      margin-right: 5px;
+      opacity: 0.8;
+    }
+    
+    .tier-price .period {
+      font-size: 1rem;
+      opacity: 0.6;
+      margin-left: 5px;
+    }
+    
+    .tier-features {
+      list-style: none;
+      margin: 0 0 var(--spacing-lg);
+      padding: 0;
+      text-align: left;
+      flex: 1;
+    }
+    
+    .tier-features li {
+      padding-left: 30px;
+      position: relative;
+      margin-bottom: var(--spacing-sm);
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    
+    .tier-features li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.2rem;
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    .contact {
+      padding: var(--spacing-xl) 0;
+      position: relative;
+    }
+
+    .contact::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        rgba(255,255,255,0) 0%, 
+        rgba(255,255,255,0.3) 50%, 
+        rgba(255,255,255,0) 100%);
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-lg);
+      margin-top: var(--spacing-lg);
+    }
+
+    .contact-info,
+    .contact-form {
+      padding: var(--spacing-lg);
+      height: 100%;
+      color: var(--text-primary);
+    }
+
+    .contact-list {
+      list-style: none;
+      margin-top: var(--spacing-md);
+    }
+
+    .contact-list li {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: var(--spacing-md);
+      transition: var(--transition-fast);
+    }
+
+    .contact-list li:hover {
+      transform: translateX(5px);
+    }
+
+    .contact-icon {
+      margin-right: var(--spacing-md);
+      min-width: 32px; /* Increased from 24px */
+    }
+
+    .silhouette-icon {
+      width: 32px; /* Increased from 24px */
+      height: 32px; /* Increased from 24px */
+      fill: white; /* White icons */
+      display: block;
+    }
+
+    .contact-detail {
+      flex: 1;
+    }
+
+    .contact-label {
+      font-family: var(--font-heading);
+      font-weight: 500; /* Medium weight for labels */
+      font-size: 1.2rem;
+      display: block;
+      margin-bottom: var(--spacing-xs);
+      color: var(--text-primary);
+      letter-spacing: 0.07em;
+    }
+
+    .contact-value {
+      opacity: 0.9;
+      font-weight: 300; /* Light weight */
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: var(--transition-fast);
+      font-size: 1.05rem;
+    }
+
+    a.contact-value:hover {
+      opacity: 1;
+      color: var(--text-primary);
+    }
+
+    /* ===== FORM STYLES ===== */
+    .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    label {
+      display: block;
+      margin-bottom: var(--spacing-sm);
+      font-family: var(--font-heading);
+      font-weight: 500; /* Medium weight for labels */
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      letter-spacing: 0.07em;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 1.1rem 1.3rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius-sm);
+      color: white;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 300; /* Light weight */
+      transition: var(--transition-fast);
+      letter-spacing: 0.05em;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    ::placeholder {
+      color: rgba(255,255,255,0.4);
+      font-family: var(--font-body);
+      font-weight: 300; /* Light weight */
+      letter-spacing: 0.05em;
+    }
+
+    .form-feedback {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: var(--spacing-md);
+      border-radius: var(--border-radius-sm);
+      background: rgba(70, 214, 70, 0.15);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transform: translateX(150%);
+      transition: var(--transition-fast);
+      z-index: 1001;
+      font-family: var(--font-body);
+      font-weight: 300; /* Light weight */
+      letter-spacing: 0.05em;
+    }
+
+    .form-feedback.show {
+      transform: translateX(0);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: var(--spacing-lg) 0 var(--spacing-md);
+      margin-top: var(--spacing-lg);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .footer-logo {
+      max-width: 300px;
+    }
+
+    .footer-logo .logo-text {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 200; /* Thinner */
+      margin-bottom: var(--spacing-sm);
+      letter-spacing: 0.08em;
+    }
+
+    .tagline {
+      font-size: 1rem;
+      opacity: 0.8;
+      font-weight: 300; /* Light weight */
+      letter-spacing: 0.06em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: var(--spacing-xl);
+    }
+
+    .footer-nav,
+    .footer-legal {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-nav h4,
+    .footer-legal h4 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      margin-bottom: var(--spacing-md);
+      font-weight: 400; /* Regular weight for headings */
+      letter-spacing: 0.07em;
+    }
+
+    .footer-nav a,
+    .footer-legal a {
+      margin-bottom: var(--spacing-sm);
+      font-weight: 300; /* Light weight */
+      opacity: 0.8;
+      transition: var(--transition-fast);
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-nav a:hover,
+    .footer-legal a:hover {
+      opacity: 1;
+      transform: translateX(5px);
+      display: inline-block;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: var(--spacing-md);
+      text-align: center;
+      font-size: 0.95rem;
+      opacity: 0.7;
+      font-weight: 300; /* Light weight */
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 0.2s; }
+    .delay-2 { transition-delay: 0.4s; }
+    .delay-3 { transition-delay: 0.6s; }
+    .delay-4 { transition-delay: 0.8s; }
+
+    /* ===== CURSOR EFFECT ===== */
+    .cursor {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, border 0.2s;
+      z-index: 9999;
+      opacity: 0;
+    }
+
+    .cursor.active {
+      width: 20px;
+      height: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .cursor-dot {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 1200px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+      }
+      
+      .pricing-grid {
+        gap: var(--spacing-md);
+      }
+    }
+
+    @media (max-width: 992px) {
+      :root {
+        --spacing-xl: 6rem;
+        --spacing-lg: 3rem;
+      }
+
+      .cursor, .cursor-dot {
+        display: none;
+      }
+      
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --spacing-xl: 4rem;
+        --spacing-lg: 2.5rem;
+      }
+
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: var(--spacing-lg);
+      }
+
+      .footer-logo {
+        text-align: center;
+        margin: 0 auto;
+      }
+      
+      .footer-logo-text {
+        justify-content: center;
+      }
+
+      .footer-links {
+        justify-content: center;
+      }
+
+      .hero {
+        text-align: center;
+      }
+
+      .hero-content {
+        margin: 0 auto;
+        padding: var(--spacing-lg) var(--spacing-sm);
+      }
+
+      .header-container {
+        padding: 0 var(--spacing-sm);
+      }
+
+      .logo {
+        font-size: 2.5rem;
+      }
+
+      .btn {
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+      }
+
+      .feature-list {
+        text-align: center;
+        padding-left: 0;
+      }
+      
+      .feature-list li {
+        padding-left: 0;
+      }
+      
+      .feature-list li::before {
+        display: none;
+      }
+      
+      /* Make the menu font even smaller on mobile */
+      .full-nav a {
+        font-size: 1.5rem;
+        margin: 0.7rem 0;
+      }
+      
+      .tier-features {
+        text-align: center;
+      }
+      
+      .tier-features li {
+        padding-left: 0;
+      }
+      
+      .tier-features li::before {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      :root {
+        --spacing-xl: 3rem;
+        --spacing-lg: 2rem;
+        --spacing-md: 1.5rem;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        text-align: center;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .contact-info,
+      .contact-form {
+        padding: var(--spacing-md);
+      }
+
+      .feature-card {
+        padding: var(--spacing-md);
+      }
+
+      h1 {
+        font-size: 2.3rem;
+      }
+
+      h2 {
+        font-size: 1.9rem;
+      }
+
+      .lead {
+        font-size: 1.1rem;
+      }
+
+      /* Make the menu font even smaller on smallest screens */
+      .full-nav a {
+        font-size: 1.3rem;
+        margin: 0.6rem 0;
+      }
+    }
+
+    /* No scroll when menu is open */
+    body.no-scroll {
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <!-- Cursor Effect Elements -->
+  <div class="cursor"></div>
+  <div class="cursor-dot"></div>
+
+  <!-- Header with Full-screen Takeover -->
+  <header id="header">
+    <div class="header-container">
+      <a href="#" class="logo" data-cursor="pointer">Webora</a>
+      
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" data-cursor="pointer">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    
+    <!-- Full-screen Navigation -->
+    <nav class="full-nav" id="fullNav">
+      <a href="#home" data-cursor="pointer">Home</a>
+      <a href="#about" data-cursor="pointer">About</a>
+      <a href="#pricing" data-cursor="pointer">Pricing</a>
+      <a href="#contact" data-cursor="pointer">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section - Added liquid shape back -->
+  <section class="hero glass" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="fade-in"><span class="accent-text">Elevate Your Digital Presence</span> Beyond Expectations</h1>
+        <p class="lead fade-in delay-1">
+          Webora is a Dubai-based creative web agency. We build sleek, modern websites with stunning design and effortless user experience. Simple. Smart. Effective.
+        </p>
+        <div class="fade-in delay-2">
+          <a href="#contact" class="btn btn-primary" data-cursor="pointer">Start Your Project</a>
+        </div>
+      </div>
+    </div>
+    <div class="liquid-shape"></div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="about" class="features">
+    <div class="container">
+      <h2 class="text-center fade-in">Why Choose Webora?</h2>
+      
+      <div class="features-grid">
+        <!-- Feature 1 - Customizability -->
+        <div class="feature-card glass fade-in">
+          <div class="feature-icon">
+            <svg class="icon" viewBox="0 0 24 24">
+              <!-- Silhouette version of customize icon -->
+              <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
+            </svg>
+          </div>
+          <h3>Complete Customizability</h3>
+          <ul class="feature-list">
+            <li>Fully customizable designs tailored to your brand identity</li>
+            <li>Flexible layouts that adapt to your unique business needs</li>
+            <li>Custom features and integrations that make your site truly yours</li>
+            <li>Scalable solutions that grow with your business</li>
+          </ul>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="feature-card glass fade-in delay-1">
+          <div class="feature-icon">
+            <svg class="icon" viewBox="0 0 24 24">
+              <!-- Silhouette version of zap icon -->
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+            </svg>
+          </div>
+          <h3>Lightning Fast</h3>
+          <ul class="feature-list">
+            <li>Optimized performance across all devices and screen sizes</li>
+            <li>Advanced caching and load time optimization</li>
+            <li>Streamlined code for maximum efficiency</li>
+            <li>SEO-friendly structure for better search engine visibility</li>
+          </ul>
+        </div>
+        
+        <!-- Feature 3 - E-commerce -->
+        <div class="feature-card glass fade-in delay-2">
+          <div class="feature-icon">
+            <svg class="icon" viewBox="0 0 24 24">
+              <!-- Silhouette version of shopping cart icon -->
+              <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
+            </svg>
+          </div>
+          <h3>E-Commerce Excellence</h3>
+          <ul class="feature-list">
+            <li>Launch your online store with secure payments and smooth shopping experiences</li>
+            <li>Integrated inventory management and product showcase features</li>
+            <li>Customer-friendly checkout process with multiple payment options</li>
+            <li>Detailed analytics and sales reporting tools</li>
+          </ul>
+        </div>
+        
+        <!-- Feature 4 - Dedicated Support -->
+        <div class="feature-card glass fade-in delay-3">
+          <div class="feature-icon">
+            <svg class="icon" viewBox="0 0 24 24">
+              <!-- Silhouette version of headset/support icon -->
+              <path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"></path>
+            </svg>
+          </div>
+          <h3>Continuous Support</h3>
+          <ul class="feature-list">
+            <li>24/7 technical assistance for your website needs</li>
+            <li>Regular maintenance and security updates</li>
+            <li>Training and resources to help you manage your site</li>
+            <li>Long-term partnership focused on your digital growth</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Pricing Section -->
+  <section id="pricing" class="pricing">
+    <div class="container">
+      <h2 class="text-center fade-in">Our Service Packages</h2>
+      <p class="lead text-center fade-in delay-1">Choose the perfect plan for your business needs</p>
+      
+      <div class="pricing-grid">
+        <!-- Tier 1 -->
+        <div class="pricing-tier fade-in">
+          <div class="tier-highlight"></div>
+          <h3 class="tier-name">Starter</h3>
+          <div class="tier-price">
+            <span class="currency">AED</span>320
+          </div>
+          <ul class="tier-features">
+            <li>Basic website design (3 pages)</li>
+            <li>Mobile responsive layout</li>
+            <li>Contact form integration</li>
+            <li>SEO basics</li>
+            <li>1 month of support</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary" data-cursor="pointer">Select Plan</a>
+        </div>
+        
+        <!-- Tier 2 -->
+        <div class="pricing-tier fade-in delay-1">
+          <div class="tier-highlight"></div>
+          <h3 class="tier-name">Professional</h3>
+          <div class="tier-price">
+            <span class="currency">AED</span>620
+          </div>
+          <ul class="tier-features">
+            <li>Custom website design (up to 5 pages)</li>
+            <li>Mobile responsive layout</li>
+            <li>Contact form with email integration</li>
+            <li>Basic e-commerce functionality</li>
+            <li>Social media integration</li>
+            <li>Advanced SEO optimization</li>
+            <li>3 months of support</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary" data-cursor="pointer">Select Plan</a>
+        </div>
+        
+        <!-- Tier 3 -->
+        <div class="pricing-tier fade-in delay-2">
+          <div class="tier-highlight"></div>
+          <h3 class="tier-name">Premium</h3>
+          <div class="tier-price">
+            <span class="currency">AED</span>920
+          </div>
+          <ul class="tier-features">
+            <li>Premium website design (up to 10 pages)</li>
+            <li>Advanced mobile responsive layout</li>
+            <li>Full e-commerce functionality</li>
+            <li>Payment gateway integration</li>
+            <li>Content management system</li>
+            <li>Complete SEO package</li>
+            <li>Analytics and reporting dashboard</li>
+            <li>6 months of priority support</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary" data-cursor="pointer">Select Plan</a>
+        </div>
+      </div>
+      
+      <p class="text-center fade-in">Need a custom solution? <a href="#contact" style="color: white; text-decoration: underline;">Contact us</a> for a tailored package.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="text-center fade-in">Get in Touch</h2>
+      
+      <div class="contact-wrapper">
+        <!-- Contact Info - Translucent glass effect -->
+        <div class="contact-info glass fade-in">
+          <h3>Contact Webora</h3>
+          
+          <ul class="contact-list">
+            <li>
+              <div class="contact-icon">
+                <!-- Email icon as white silhouette -->
+                <svg class="silhouette-icon" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
+                </svg>
+              </div>
+              
+              <div class="contact-detail">
+                <span class="contact-label">Email</span>
+                <a href="mailto:hello@webora.com" class="contact-value" data-cursor="pointer">hello@webora.com</a>
+              </div>
+            </li>
+            
+            <li>
+              <div class="contact-icon">
+                <!-- Phone icon as white silhouette -->
+                <svg class="silhouette-icon" viewBox="0 0 24 24">
+                  <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"></path>
+                </svg>
+              </div>
+              
+              <div class="contact-detail">
+                <span class="contact-label">Phone</span>
+                <a href="tel:+971556263545" class="contact-value" data-cursor="pointer">+971 55 626 3545</a>
+              </div>
+            </li>
+            
+            <li>
+              <div class="contact-icon">
+                <!-- WhatsApp icon as white silhouette -->
+                <svg class="silhouette-icon" viewBox="0 0 24 24">
+                  <path d="M16.75 13.96c.25.13.41.2.46.3.06.11.04.61-.21 1.18-.2.56-1.24 1.1-1.7 1.12-.46.02-.47.36-2.96-.73-2.49-1.09-3.99-3.75-4.11-3.92-.12-.17-.96-1.38-.92-2.61.05-1.22.69-1.8.95-2.04.24-.26.51-.29.68-.26h.47c.15 0 .36-.06.55.45l.69 1.87c.06.13.1.28.01.44l-.27.41-.39.42c-.12.12-.26.25-.12.5.12.26.62 1.09 1.32 1.78.91.88 1.71 1.17 1.95 1.3.24.14.39.12.54-.04l.81-.94c.19-.25.35-.19.58-.11l1.67.88M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8a8 8 0 0 0-8-8z"></path>
+                </svg>
+              </div>
+              
+              <div class="contact-detail">
+                <span class="contact-label">WhatsApp</span>
+                <a href="https://wa.me/971556263545" class="contact-value" data-cursor="pointer">+971 55 626 3545</a>
+              </div>
+            </li>
+            
+            <li>
+              <div class="contact-icon">
+                <!-- Location icon as white silhouette -->
+                <svg class="silhouette-icon" viewBox="0 0 24 24">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
+                </svg>
+              </div>
+              
+              <div class="contact-detail">
+                <span class="contact-label">Location</span>
+                <span class="contact-value">United Arab Emirates</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Contact Form - Translucent glass effect -->
+        <div class="contact-form glass fade-in delay-1">
+          <h3>Send a Message</h3>
+          
+          <form id="contactForm" action="https://formsubmit.co/aatif.ahmed404@gmail.com" method="POST">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Your name">
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder="Your email">
+            </div>
+            
+            <div class="form-group">
+              <label for="service">Service Package</label>
+              <select id="service" name="service" required style="width: 100%; padding: 1.1rem 1.3rem; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border); border-radius: var(--border-radius-sm); color: white; font-family: var(--font-body); font-size: 1rem; font-weight: 300; letter-spacing: 0.05em; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+                <option value="" disabled selected>Select a service package</option>
+                <option value="Starter">Starter - AED 320</option>
+                <option value="Professional">Professional - AED 620</option>
+                <option value="Premium">Premium - AED 920</option>
+                <option value="Custom">Custom Solution</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required placeholder="How can we help you?" rows="4"></textarea>
+            </div>
+            
+            <!-- Hidden inputs for FormSubmit configuration -->
+            <input type="hidden" name="_subject" value="New message from Webora website!">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://yourwebsite.com/thanks.html">
+            
+            <button type="submit" class="btn btn-primary" data-cursor="pointer">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Feedback Notification -->
+    <div id="formFeedback" class="form-feedback">
+      Message sent successfully!
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="glass" id="info">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <div class="logo-text">Webora</div>
+          <p class="tagline">Creating exceptional digital experiences</p>
+        </div>
+        
+        <div class="footer-links">
+          <div class="footer-nav">
+            <h4>Navigation</h4>
+            <a href="#home" data-cursor="pointer">Home</a>
+            <a href="#about" data-cursor="pointer">About</a>
+            <a href="#pricing" data-cursor="pointer">Pricing</a>
+            <a href="#contact" data-cursor="pointer">Contact</a>
+          </div>
+          
+          <div class="footer-legal">
+            <h4>Legal</h4>
+            <a href="#" data-cursor="pointer">Terms of Service</a>
+            <a href="#" data-cursor="pointer">Privacy Policy</a>
+            <a href="#" data-cursor="pointer">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; <span id="currentYear"></span> Webora. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // DOM Elements
+    const menuToggle = document.getElementById('menuToggle');
+    const header = document.getElementById('header');
+    const fullNav = document.getElementById('fullNav');
+    const formFeedback = document.getElementById('formFeedback');
+    const cursor = document.querySelector('.cursor');
+    const cursorDot = document.querySelector('.cursor-dot');
+
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = "2025";
+    
+    // Full-screen menu toggle
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      header.classList.toggle('expanded');
+      fullNav.classList.toggle('active');
+      document.body.classList.toggle('no-scroll');
+    });
+    
+    // Navigation links - close menu when clicked
+    document.querySelectorAll('#fullNav a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        header.classList.remove('expanded');
+        fullNav.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+      });
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          // Scroll to target
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Scroll-based header styles
+    window.addEventListener('scroll', () => {
+      if (!header.classList.contains('expanded')) {
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+    });
+    
+    // Handle form submission - Now using formsubmit.co
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', function(e) {
+      // The form will submit normally to formsubmit.co
+      // This is just for additional feedback before the redirect
+      
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const messageInput = document.getElementById('message');
+      const serviceInput = document.getElementById('service');
+      
+      // Simple form validation
+      if (nameInput.value.trim() === '' || emailInput.value.trim() === '' || messageInput.value.trim() === '' || serviceInput.value === '') {
+        e.preventDefault();
+        alert('Please fill out all fields');
+        return;
+      }
+      
+      // Show local feedback
+      formFeedback.classList.add('show');
+      
+      // Let form submit naturally to formsubmit.co service
+    });
+    
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    // Observe all fade-in elements
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+    
+    // Custom cursor effect
+    function updateCursor(e) {
+      if (window.innerWidth > 992) {
+        cursor.style.opacity = '1';
+        cursorDot.style.opacity = '1';
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+        cursorDot.style.left = `${e.clientX}px`;
+        cursorDot.style.top = `${e.clientY}px`;
+      }
+    }
+    
+    window.addEventListener('mousemove', updateCursor);
+    
+    // Custom cursor interaction with interactive elements
+    document.querySelectorAll('[data-cursor="pointer"]').forEach(el => {
+      el.addEventListener('mouseover', () => {
+        if (window.innerWidth > 992) {
+          cursor.classList.add('active');
+        }
+      });
+      
+      el.addEventListener('mouseleave', () => {
+        if (window.innerWidth > 992) {
+          cursor.classList.remove('active');
+        }
+      });
+    });
+    
+    // Hide cursor when mouse leaves the window
+    document.addEventListener('mouseleave', () => {
+      cursor.style.opacity = '0';
+      cursorDot.style.opacity = '0';
+    });
+    
+    // Show cursor when mouse enters the window
+    document.addEventListener('mouseenter', () => {
+      cursor.style.opacity = '1';
+      cursorDot.style.opacity = '1';
+    });
+    
+    // Preloader animation
+    window.addEventListener('load', () => {
+      // Add class to body when page is fully loaded
+      document.body.classList.add('loaded');
+      
+      // Trigger initial animations for hero section
+      setTimeout(() => {
+        document.querySelectorAll('.hero .fade-in').forEach(el => {
+          el.classList.add('visible');
+        });
+      }, 300);
+    });
+  </script>
+</body>
+</html>
