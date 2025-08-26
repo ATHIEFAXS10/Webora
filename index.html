@@ -251,6 +251,35 @@
     .logo:hover {
       text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
     }
+    
+    /* Header right section */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    /* Header buttons */
+    .header-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 0.95rem;
+      letter-spacing: 0.07em;
+      text-decoration: none;
+      transition: var(--transition-fast);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    
+    .header-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
 
     .menu-toggle {
       display: block;
@@ -343,6 +372,10 @@
 
     .full-nav.active a:nth-child(4) {
       transition-delay: 0.4s;
+    }
+
+    .full-nav.active a:nth-child(5) {
+      transition-delay: 0.5s;
     }
 
     .full-nav a::after {
@@ -551,116 +584,21 @@
       transform: scale(1.1);
     }
     
-    /* ===== PRICING SECTION ===== */
-    .pricing {
-      padding: var(--spacing-xl) 0;
-      position: relative;
+    /* Services banner */
+    .services-banner {
+      padding: var(--spacing-lg) 0;
       text-align: center;
-      overflow: hidden;
-    }
-    
-    .pricing::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, 
-        rgba(255,255,255,0) 0%, 
-        rgba(255,255,255,0.3) 50%, 
-        rgba(255,255,255,0) 100%);
-    }
-    
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--spacing-lg);
-      margin-top: var(--spacing-lg);
-      margin-bottom: var(--spacing-lg);
-    }
-    
-    .pricing-tier {
-      display: flex;
-      flex-direction: column;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid var(--glass-border);
+      position: relative;
+      margin: var(--spacing-xl) 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-radius: var(--border-radius);
-      box-shadow: var(--shadow-subtle);
-      padding: var(--spacing-lg) var(--spacing-md);
-      transition: var(--transition-medium);
-      position: relative;
-      overflow: hidden;
-      height: 100%;
+      border: 1px solid var(--glass-border);
     }
     
-    .pricing-tier:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      background: rgba(255, 255, 255, 0.15);
-    }
-    
-    .tier-highlight {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3));
-    }
-    
-    .tier-name {
-      font-size: 1.8rem;
-      font-weight: 300;
-      margin-bottom: var(--spacing-sm);
-      position: relative;
-    }
-    
-    .tier-price {
-      font-size: 2.5rem;
-      font-weight: 300;
-      margin-bottom: var(--spacing-md);
-      color: rgba(255, 255, 255, 0.9);
-    }
-    
-    .tier-price .currency {
-      font-size: 1.5rem;
-      vertical-align: top;
-      margin-right: 5px;
-      opacity: 0.8;
-    }
-    
-    .tier-price .period {
-      font-size: 1rem;
-      opacity: 0.6;
-      margin-left: 5px;
-    }
-    
-    .tier-features {
-      list-style: none;
-      margin: 0 0 var(--spacing-lg);
-      padding: 0;
-      text-align: left;
-      flex: 1;
-    }
-    
-    .tier-features li {
-      padding-left: 30px;
-      position: relative;
-      margin-bottom: var(--spacing-sm);
-      font-size: 1rem;
-      opacity: 0.9;
-    }
-    
-    .tier-features li::before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 1.2rem;
+    .services-banner .btn {
+      margin-top: var(--spacing-md);
     }
 
     /* ===== CONTACT SECTION ===== */
@@ -918,47 +856,10 @@
     .delay-3 { transition-delay: 0.6s; }
     .delay-4 { transition-delay: 0.8s; }
 
-    /* ===== CURSOR EFFECT ===== */
-    .cursor {
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      transition: width 0.2s, height 0.2s, border 0.2s;
-      z-index: 9999;
-      opacity: 0;
-    }
-
-    .cursor.active {
-      width: 20px;
-      height: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .cursor-dot {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      background-color: rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0;
-    }
-
     /* ===== RESPONSIVE DESIGN ===== */
     @media (max-width: 1200px) {
       .features-grid {
         grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
-      }
-      
-      .pricing-grid {
-        gap: var(--spacing-md);
       }
     }
 
@@ -966,17 +867,6 @@
       :root {
         --spacing-xl: 6rem;
         --spacing-lg: 3rem;
-      }
-
-      .cursor, .cursor-dot {
-        display: none;
-      }
-      
-      .pricing-grid {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
       }
     }
 
@@ -1031,6 +921,10 @@
       .logo {
         font-size: 2.5rem;
       }
+      
+      .header-btn {
+        display: none; /* Hide the header buttons on mobile */
+      }
 
       .btn {
         padding: 0.9rem 2rem;
@@ -1054,18 +948,6 @@
       .full-nav a {
         font-size: 1.5rem;
         margin: 0.7rem 0;
-      }
-      
-      .tier-features {
-        text-align: center;
-      }
-      
-      .tier-features li {
-        padding-left: 0;
-      }
-      
-      .tier-features li::before {
-        display: none;
       }
     }
 
@@ -1121,28 +1003,28 @@
   </style>
 </head>
 <body>
-  <!-- Cursor Effect Elements -->
-  <div class="cursor"></div>
-  <div class="cursor-dot"></div>
-
   <!-- Header with Full-screen Takeover -->
   <header id="header">
     <div class="header-container">
-      <a href="#" class="logo" data-cursor="pointer">Webora</a>
+      <a href="#" class="logo">Webora</a>
       
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" data-cursor="pointer">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <div class="header-right">
+        <a href="about.html" class="header-btn">About Us</a>
+        <a href="services.html" class="header-btn">Services</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </div>
     
     <!-- Full-screen Navigation -->
     <nav class="full-nav" id="fullNav">
-      <a href="#home" data-cursor="pointer">Home</a>
-      <a href="#about" data-cursor="pointer">About</a>
-      <a href="#pricing" data-cursor="pointer">Pricing</a>
-      <a href="#contact" data-cursor="pointer">Contact</a>
+      <a href="#home">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
@@ -1155,7 +1037,7 @@
           Webora is a Dubai-based creative web agency. We build sleek, modern websites with stunning design and effortless user experience. Simple. Smart. Effective.
         </p>
         <div class="fade-in delay-2">
-          <a href="#contact" class="btn btn-primary" data-cursor="pointer">Start Your Project</a>
+          <a href="#contact" class="btn btn-primary">Start Your Project</a>
         </div>
       </div>
     </div>
@@ -1239,73 +1121,14 @@
     </div>
   </section>
   
-  <!-- Pricing Section -->
-  <section id="pricing" class="pricing">
-    <div class="container">
-      <h2 class="text-center fade-in">Our Service Packages</h2>
-      <p class="lead text-center fade-in delay-1">Choose the perfect plan for your business needs</p>
-      
-      <div class="pricing-grid">
-        <!-- Tier 1 -->
-        <div class="pricing-tier fade-in">
-          <div class="tier-highlight"></div>
-          <h3 class="tier-name">Starter</h3>
-          <div class="tier-price">
-            <span class="currency">AED</span>320
-          </div>
-          <ul class="tier-features">
-            <li>Basic website design (3 pages)</li>
-            <li>Mobile responsive layout</li>
-            <li>Contact form integration</li>
-            <li>SEO basics</li>
-            <li>1 month of support</li>
-          </ul>
-          <a href="#contact" class="btn btn-primary" data-cursor="pointer">Select Plan</a>
-        </div>
-        
-        <!-- Tier 2 -->
-        <div class="pricing-tier fade-in delay-1">
-          <div class="tier-highlight"></div>
-          <h3 class="tier-name">Professional</h3>
-          <div class="tier-price">
-            <span class="currency">AED</span>620
-          </div>
-          <ul class="tier-features">
-            <li>Custom website design (up to 5 pages)</li>
-            <li>Mobile responsive layout</li>
-            <li>Contact form with email integration</li>
-            <li>Basic e-commerce functionality</li>
-            <li>Social media integration</li>
-            <li>Advanced SEO optimization</li>
-            <li>3 months of support</li>
-          </ul>
-          <a href="#contact" class="btn btn-primary" data-cursor="pointer">Select Plan</a>
-        </div>
-        
-        <!-- Tier 3 -->
-        <div class="pricing-tier fade-in delay-2">
-          <div class="tier-highlight"></div>
-          <h3 class="tier-name">Premium</h3>
-          <div class="tier-price">
-            <span class="currency">AED</span>920
-          </div>
-          <ul class="tier-features">
-            <li>Premium website design (up to 10 pages)</li>
-            <li>Advanced mobile responsive layout</li>
-            <li>Full e-commerce functionality</li>
-            <li>Payment gateway integration</li>
-            <li>Content management system</li>
-            <li>Complete SEO package</li>
-            <li>Analytics and reporting dashboard</li>
-            <li>6 months of priority support</li>
-          </ul>
-          <a href="#contact" class="btn btn-primary" data-cursor="pointer">Select Plan</a>
-        </div>
-      </div>
-      
-      <p class="text-center fade-in">Need a custom solution? <a href="#contact" style="color: white; text-decoration: underline;">Contact us</a> for a tailored package.</p>
+  <!-- Services Banner -->
+  <div class="container">
+    <div class="services-banner fade-in">
+      <h2>Explore Our Service Packages</h2>
+      <p class="lead">We offer a range of service packages to meet your specific needs and budget</p>
+      <a href="services.html" class="btn btn-primary">View Services</a>
     </div>
-  </section>
+  </div>
 
   <!-- Contact Section -->
   <section id="contact" class="contact">
@@ -1328,7 +1151,7 @@
               
               <div class="contact-detail">
                 <span class="contact-label">Email</span>
-                <a href="mailto:hello@webora.com" class="contact-value" data-cursor="pointer">hello@webora.com</a>
+                <a href="mailto:hello@webora.com" class="contact-value">hello@webora.com</a>
               </div>
             </li>
             
@@ -1342,7 +1165,7 @@
               
               <div class="contact-detail">
                 <span class="contact-label">Phone</span>
-                <a href="tel:+971556263545" class="contact-value" data-cursor="pointer">+971 55 626 3545</a>
+                <a href="tel:+971556263545" class="contact-value">+971 55 626 3545</a>
               </div>
             </li>
             
@@ -1356,7 +1179,7 @@
               
               <div class="contact-detail">
                 <span class="contact-label">WhatsApp</span>
-                <a href="https://wa.me/971556263545" class="contact-value" data-cursor="pointer">+971 55 626 3545</a>
+                <a href="https://wa.me/971556263545" class="contact-value">+971 55 626 3545</a>
               </div>
             </li>
             
@@ -1392,17 +1215,6 @@
             </div>
             
             <div class="form-group">
-              <label for="service">Service Package</label>
-              <select id="service" name="service" required style="width: 100%; padding: 1.1rem 1.3rem; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border); border-radius: var(--border-radius-sm); color: white; font-family: var(--font-body); font-size: 1rem; font-weight: 300; letter-spacing: 0.05em; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
-                <option value="" disabled selected>Select a service package</option>
-                <option value="Starter">Starter - AED 320</option>
-                <option value="Professional">Professional - AED 620</option>
-                <option value="Premium">Premium - AED 920</option>
-                <option value="Custom">Custom Solution</option>
-              </select>
-            </div>
-            
-            <div class="form-group">
               <label for="message">Message</label>
               <textarea id="message" name="message" required placeholder="How can we help you?" rows="4"></textarea>
             </div>
@@ -1413,7 +1225,7 @@
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_next" value="https://yourwebsite.com/thanks.html">
             
-            <button type="submit" class="btn btn-primary" data-cursor="pointer">Send Message</button>
+            <button type="submit" class="btn btn-primary">Send Message</button>
           </form>
         </div>
       </div>
@@ -1437,17 +1249,17 @@
         <div class="footer-links">
           <div class="footer-nav">
             <h4>Navigation</h4>
-            <a href="#home" data-cursor="pointer">Home</a>
-            <a href="#about" data-cursor="pointer">About</a>
-            <a href="#pricing" data-cursor="pointer">Pricing</a>
-            <a href="#contact" data-cursor="pointer">Contact</a>
+            <a href="#home">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="#contact">Contact</a>
           </div>
           
           <div class="footer-legal">
             <h4>Legal</h4>
-            <a href="#" data-cursor="pointer">Terms of Service</a>
-            <a href="#" data-cursor="pointer">Privacy Policy</a>
-            <a href="#" data-cursor="pointer">Cookie Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
           </div>
         </div>
       </div>
@@ -1464,11 +1276,9 @@
     const header = document.getElementById('header');
     const fullNav = document.getElementById('fullNav');
     const formFeedback = document.getElementById('formFeedback');
-    const cursor = document.querySelector('.cursor');
-    const cursorDot = document.querySelector('.cursor-dot');
 
     // Set current year in footer
-    document.getElementById('currentYear').textContent = "2025";
+    document.getElementById('currentYear').textContent = "2023";
     
     // Full-screen menu toggle
     menuToggle.addEventListener('click', () => {
@@ -1527,10 +1337,9 @@
       const nameInput = document.getElementById('name');
       const emailInput = document.getElementById('email');
       const messageInput = document.getElementById('message');
-      const serviceInput = document.getElementById('service');
       
       // Simple form validation
-      if (nameInput.value.trim() === '' || emailInput.value.trim() === '' || messageInput.value.trim() === '' || serviceInput.value === '') {
+      if (nameInput.value.trim() === '' || emailInput.value.trim() === '' || messageInput.value.trim() === '') {
         e.preventDefault();
         alert('Please fill out all fields');
         return;
@@ -1560,47 +1369,6 @@
     // Observe all fade-in elements
     document.querySelectorAll('.fade-in').forEach(el => {
       observer.observe(el);
-    });
-    
-    // Custom cursor effect
-    function updateCursor(e) {
-      if (window.innerWidth > 992) {
-        cursor.style.opacity = '1';
-        cursorDot.style.opacity = '1';
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
-        cursorDot.style.left = `${e.clientX}px`;
-        cursorDot.style.top = `${e.clientY}px`;
-      }
-    }
-    
-    window.addEventListener('mousemove', updateCursor);
-    
-    // Custom cursor interaction with interactive elements
-    document.querySelectorAll('[data-cursor="pointer"]').forEach(el => {
-      el.addEventListener('mouseover', () => {
-        if (window.innerWidth > 992) {
-          cursor.classList.add('active');
-        }
-      });
-      
-      el.addEventListener('mouseleave', () => {
-        if (window.innerWidth > 992) {
-          cursor.classList.remove('active');
-        }
-      });
-    });
-    
-    // Hide cursor when mouse leaves the window
-    document.addEventListener('mouseleave', () => {
-      cursor.style.opacity = '0';
-      cursorDot.style.opacity = '0';
-    });
-    
-    // Show cursor when mouse enters the window
-    document.addEventListener('mouseenter', () => {
-      cursor.style.opacity = '1';
-      cursorDot.style.opacity = '1';
     });
     
     // Preloader animation
