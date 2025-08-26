@@ -45,6 +45,8 @@
     html {
       scroll-behavior: smooth;
       scroll-padding-top: 80px;
+      /* Prevent layout shift when menu opens */
+      overflow-y: scroll;
     }
 
     /* Background with mountains */
@@ -138,6 +140,10 @@
     .text-center {
       text-align: center;
     }
+    
+    .text-left {
+      text-align: left;
+    }
 
     strong {
       font-weight: 500;
@@ -217,6 +223,35 @@
 
     .logo:hover {
       text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+    
+    /* Header right section - increased gap */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 30px; /* Increased gap between buttons and hamburger */
+    }
+    
+    /* Header buttons */
+    .header-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 0.95rem;
+      letter-spacing: 0.07em;
+      text-decoration: none;
+      transition: var(--transition-fast);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    
+    .header-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
     }
 
     .menu-toggle {
@@ -337,61 +372,66 @@
       padding: calc(var(--spacing-xl) + 80px) 0 var(--spacing-lg);
       text-align: center;
     }
-
-    /* ===== BUTTONS ===== */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem 3rem;
-      border-radius: 50px;
-      font-family: var(--font-body);
-      font-weight: 400;
-      font-size: 1.05rem;
-      letter-spacing: 0.07em;
-      transition: var(--transition-medium);
-      cursor: pointer;
-      text-decoration: none;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-primary {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #fff;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 100%;
-      background-color: rgba(255, 255, 255, 0.15);
-      transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-      z-index: -1;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .btn-primary:hover::before {
-      width: 100%;
-    }
     
+    .page-header h1, 
+    .page-header p {
+      text-align: center;
+    }
+
+    /* Service option radio buttons */
+    .service-options {
+      max-width: 600px;
+      margin: var(--spacing-lg) auto;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+    }
+
+    .option-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .option-label {
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: 1.2rem;
+      display: block;
+      margin-bottom: var(--spacing-sm);
+      color: var(--text-primary);
+      letter-spacing: 0.07em;
+    }
+
+    .radio-option {
+      display: block;
+      margin-bottom: 10px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius-sm);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .radio-option:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .radio-option input[type="radio"] {
+      margin-right: 12px;
+    }
+
     /* ===== PRICING SECTION ===== */
     .pricing {
       padding: var(--spacing-xl) 0;
       position: relative;
-      text-align: center;
       overflow: hidden;
+    }
+    
+    .pricing h2 {
+      text-align: center;
     }
     
     .pricing-grid {
@@ -416,6 +456,7 @@
       position: relative;
       overflow: hidden;
       height: 100%;
+      text-align: center;
     }
     
     .pricing-tier:hover {
@@ -485,49 +526,36 @@
       font-size: 1.2rem;
     }
 
-    /* Service option radio buttons */
-    .service-options {
-      max-width: 600px;
-      margin: var(--spacing-lg) auto;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--border-radius);
-      padding: var(--spacing-lg);
-    }
-
-    .option-group {
-      margin-bottom: var(--spacing-md);
-    }
-
-    .option-label {
-      font-family: var(--font-heading);
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 3rem;
+      border-radius: 50px;
+      font-family: var(--font-body);
       font-weight: 400;
-      font-size: 1.2rem;
-      display: block;
-      margin-bottom: var(--spacing-sm);
-      color: var(--text-primary);
+      font-size: 1.05rem;
       letter-spacing: 0.07em;
-    }
-
-    .radio-option {
-      display: block;
-      margin-bottom: 10px;
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--border-radius-sm);
+      transition: var(--transition-medium);
       cursor: pointer;
-      transition: var(--transition-fast);
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
     }
 
-    .radio-option:hover {
-      background: rgba(255, 255, 255, 0.18);
+    .btn-primary {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
-    .radio-option input[type="radio"] {
-      margin-right: 12px;
+    .btn-primary:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 0.15);
     }
 
     /* ===== FOOTER ===== */
@@ -624,7 +652,6 @@
     .delay-1 { transition-delay: 0.2s; }
     .delay-2 { transition-delay: 0.4s; }
     .delay-3 { transition-delay: 0.6s; }
-    .delay-4 { transition-delay: 0.8s; }
 
     /* ===== RESPONSIVE DESIGN ===== */
     @media (max-width: 1200px) {
@@ -653,6 +680,13 @@
         --spacing-lg: 2.5rem;
       }
 
+      .value-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
       .footer-content {
         flex-direction: column;
         gap: var(--spacing-lg);
@@ -661,10 +695,6 @@
       .footer-logo {
         text-align: center;
         margin: 0 auto;
-      }
-      
-      .footer-logo-text {
-        justify-content: center;
       }
 
       .footer-links {
@@ -679,11 +709,10 @@
         font-size: 2.5rem;
       }
 
-      .btn {
-        padding: 0.9rem 2rem;
-        font-size: 1rem;
+      .header-btn {
+        display: none; /* Hide header buttons on mobile */
       }
-      
+
       /* Make the menu font even smaller on mobile */
       .full-nav a {
         font-size: 1.5rem;
@@ -691,15 +720,15 @@
       }
       
       .tier-features {
-        text-align: center;
+        text-align: left; /* Keep bullet points aligned left on mobile */
       }
       
       .tier-features li {
-        padding-left: 0;
+        padding-left: 30px; /* Keep padding for bullet point */
       }
       
       .tier-features li::before {
-        display: none;
+        display: block; /* Keep bullet points visible */
       }
     }
 
@@ -731,17 +760,47 @@
       .lead {
         font-size: 1.1rem;
       }
-
-      /* Make the menu font even smaller on smallest screens */
-      .full-nav a {
-        font-size: 1.3rem;
-        margin: 0.6rem 0;
-      }
     }
 
-    /* No scroll when menu is open */
+    /* Modified no-scroll to prevent layout shift */
     body.no-scroll {
       overflow: hidden;
+      /* This prevents layout shift by adding padding-right equal to scrollbar width */
+      padding-right: 17px;
+    }
+    
+    /* Home button */
+    .home-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-subtle);
+      transition: var(--transition-fast);
+      z-index: 100;
+    }
+    
+    .home-btn:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: var(--shadow-strong);
+    }
+    
+    .home-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
     }
   </style>
 </head>
@@ -751,17 +810,22 @@
     <div class="header-container">
       <a href="index.html" class="logo">Webora</a>
       
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <div class="header-right">
+        <a href="index.html" class="header-btn">Home</a>
+        <a href="about.html" class="header-btn">About Us</a>
+        <a href="services.html" class="header-btn">Services</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </div>
     
     <!-- Full-screen Navigation -->
     <nav class="full-nav" id="fullNav">
       <a href="index.html">Home</a>
-      <a href="index.html#about">About</a>
+      <a href="about.html">About Us</a>
       <a href="services.html">Services</a>
       <a href="index.html#contact">Contact</a>
     </nav>
@@ -877,7 +941,7 @@
           <div class="footer-nav">
             <h4>Navigation</h4>
             <a href="index.html">Home</a>
-            <a href="index.html#about">About</a>
+            <a href="about.html">About Us</a>
             <a href="services.html">Services</a>
             <a href="index.html#contact">Contact</a>
           </div>
@@ -896,22 +960,40 @@
       </div>
     </div>
   </footer>
+  
+  <!-- Home Button -->
+  <a href="index.html" class="home-btn" title="Home">
+    <svg viewBox="0 0 24 24">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>
+  </a>
 
   <script>
     // DOM Elements
     const menuToggle = document.getElementById('menuToggle');
     const header = document.getElementById('header');
     const fullNav = document.getElementById('fullNav');
-
-    // Set current year in footer - using the actual current year
-    document.getElementById('currentYear').textContent = "2023";
     
-    // Full-screen menu toggle
+    // Calculate scrollbar width for later use
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = "2025";
+    
+    // Full-screen menu toggle with fix for layout shift
     menuToggle.addEventListener('click', () => {
       menuToggle.classList.toggle('active');
       header.classList.toggle('expanded');
       fullNav.classList.toggle('active');
-      document.body.classList.toggle('no-scroll');
+      
+      // Toggle no-scroll class on body with layout shift prevention
+      if (document.body.classList.contains('no-scroll')) {
+        document.body.classList.remove('no-scroll');
+        document.body.style.paddingRight = '0';
+      } else {
+        document.body.classList.add('no-scroll');
+        document.body.style.paddingRight = scrollbarWidth + 'px';
+      }
     });
     
     // Navigation links - close menu when clicked
@@ -921,6 +1003,7 @@
         header.classList.remove('expanded');
         fullNav.classList.remove('active');
         document.body.classList.remove('no-scroll');
+        document.body.style.paddingRight = '0';
       });
     });
     
