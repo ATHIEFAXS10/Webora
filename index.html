@@ -35,6 +35,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   
+  <!-- EmailJS Integration -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      // Initialize EmailJS with your user ID
+      emailjs.init("YOUR_USER_ID");
+    })();
+  </script>
+  
   <style>
     /* ===== BASE STYLES ===== */
     :root {
@@ -789,6 +798,32 @@
     .form-feedback.show {
       transform: translateX(0);
     }
+    
+    /* Error feedback */
+    .form-feedback.error {
+      background: rgba(214, 70, 70, 0.15);
+    }
+
+    /* Form loading spinner */
+    .spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      margin-left: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .btn.loading .spinner {
+      display: inline-block;
+    }
 
     /* ===== FOOTER ===== */
     footer {
@@ -1273,15 +1308,21 @@
               <textarea id="message" name="message" required placeholder="How can we help you?" rows="4"></textarea>
             </div>
             
-            <button type="submit" class="btn btn-primary">Send Message</button>
+            <button type="submit" id="submitButton" class="btn btn-primary">
+              Send Message
+              <span class="spinner"></span>
+            </button>
           </form>
         </div>
       </div>
     </div>
 
-    <!-- Form Feedback Notification -->
+    <!-- Form Feedback Notifications -->
     <div id="formFeedback" class="form-feedback" aria-live="polite" role="alert">
       Message sent successfully!
+    </div>
+    <div id="formError" class="form-feedback error" aria-live="polite" role="alert">
+      Something went wrong. Please try again.
     </div>
   </section>
 
@@ -1331,7 +1372,9 @@
     const header = document.getElementById('header');
     const fullNav = document.getElementById('fullNav');
     const formFeedback = document.getElementById('formFeedback');
+    const formError = document.getElementById('formError');
     const contactForm = document.getElementById('contactForm');
+    const submitButton = document.getElementById('submitButton');
     
     // Calculate scrollbar width for later use
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
@@ -1396,51 +1439,83 @@
       }
     });
     
-    // Handle form submission - Custom handler to stay on the same page
+    // Handle contact form submission
     if (contactForm) {
       contactForm.addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent the default form submission
+        e.preventDefault();
+        
+        // Show loading state
+        submitButton.classList.add('loading');
+        submitButton.disabled = true;
         
         const nameInput = document.getElementById('name');
         const emailInput = document.getElementById('email');
         const messageInput = document.getElementById('message');
         
-        // Simple form validation
-        if (nameInput.value.trim() === '' || emailInput.value.trim() === '' || messageInput.value.trim() === '') {
-          alert('Please fill out all fields');
-          return;
-        }
+        // Prepare template parameters
+        const templateParams = {
+          from_name: nameInput.value,
+          from_email: emailInput.value,
+          message: messageInput.value,
+          to_email: 'hello.webora.info@gmail.com'
+        };
         
-        // Use fetch API to submit the form data
-        const formData = new FormData(contactForm);
-        
-        // Send the form data to FormSubmit service
-        fetch('https://formsubmit.co/ajax/hello.webora.info@gmail.com', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json'
-          },
-          body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-          // Show success feedback notification
-          if (formFeedback) {
-            formFeedback.classList.add('show');
-            
-            // Hide notification after 5 seconds
-            setTimeout(() => {
-              formFeedback.classList.remove('show');
-            }, 5000);
-          }
+        // Use the direct email sending method - alternative to EmailJS
+        const sendDirectEmail = () => {
+          // Create form data for a direct email approach
+          const formData = new FormData();
+          formData.append('name', nameInput.value);
+          formData.append('email', emailInput.value);
+          formData.append('message', messageInput.value);
           
-          // Reset the form
-          contactForm.reset();
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('Something went wrong. Please try again or contact us directly.');
-        });
+          // Send data using fetch and a simple serverless function
+          fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          })
+          .then(response => response.json())
+          .then(data => {
+            // Success handling
+            submitButton.classList.remove('loading');
+            submitButton.disabled = false;
+            
+            // Show success message
+            if (formFeedback) {
+              formFeedback.textContent = "Message sent successfully!";
+              formFeedback.classList.add('show');
+              
+              // Hide notification after 5 seconds
+              setTimeout(() => {
+                formFeedback.classList.remove('show');
+              }, 5000);
+            }
+            
+            // Reset form
+            contactForm.reset();
+          })
+          .catch(error => {
+            // Error handling
+            console.error('Error:', error);
+            submitButton.classList.remove('loading');
+            submitButton.disabled = false;
+            
+            // Show error message
+            if (formError) {
+              formError.classList.add('show');
+              
+              // Hide notification after 5 seconds
+              setTimeout(() => {
+                formError.classList.remove('show');
+              }, 5000);
+            }
+          });
+        };
+        
+        // Use direct approach (much more reliable)
+        sendDirectEmail();
       });
     }
     
