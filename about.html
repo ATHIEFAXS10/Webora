@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us - Webora – Luxury Web Development</title>
+  <title>About Us - Webora – Web Development Agency</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -140,7 +140,7 @@
     .text-center {
       text-align: center;
     }
-
+    
     .text-left {
       text-align: left;
     }
@@ -371,6 +371,59 @@
     .page-header {
       padding: calc(var(--spacing-xl) + 80px) 0 var(--spacing-lg);
       text-align: center;
+      position: relative;
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    /* Added glass effect for page header */
+    .page-header-content {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-subtle);
+      padding: var(--spacing-lg);
+      position: relative;
+      overflow: hidden;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Add floating glass widgets */
+    .glass-widget {
+      position: absolute;
+      border-radius: 30%;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      z-index: -1;
+    }
+
+    .glass-widget-1 {
+      width: 120px;
+      height: 120px;
+      top: -30px;
+      left: 10%;
+      transform: rotate(15deg);
+    }
+
+    .glass-widget-2 {
+      width: 80px;
+      height: 80px;
+      bottom: -20px;
+      right: 15%;
+      transform: rotate(-10deg);
+    }
+    
+    .glass-widget-3 {
+      width: 100px;
+      height: 100px;
+      top: 30%;
+      right: -20px;
+      transform: rotate(45deg);
+      opacity: 0.7;
     }
 
     /* ===== ABOUT CONTENT ===== */
@@ -717,6 +770,10 @@
         font-size: 1.5rem;
         margin: 0.7rem 0;
       }
+      
+      .glass-widget-1, .glass-widget-2, .glass-widget-3 {
+        display: none; /* Hide glass widgets on mobile for better performance */
+      }
     }
 
     @media (max-width: 480px) {
@@ -818,11 +875,16 @@
     </nav>
   </header>
 
-  <!-- Page Header -->
+  <!-- Page Header with Glass Effect -->
   <div class="page-header">
     <div class="container">
-      <h1 class="fade-in">About Webora</h1>
-      <p class="lead fade-in delay-1">We build digital experiences that help businesses thrive in the modern world</p>
+      <div class="page-header-content fade-in">
+        <div class="glass-widget glass-widget-1"></div>
+        <div class="glass-widget glass-widget-2"></div>
+        <div class="glass-widget glass-widget-3"></div>
+        <h1>About Webora</h1>
+        <p class="lead">We build digital experiences that help businesses thrive in the modern world</p>
+      </div>
     </div>
   </div>
 
@@ -939,9 +1001,9 @@
           
           <div class="footer-legal">
             <h4>Legal</h4>
-            <a href="#">Terms of Service</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Cookie Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="cookies.html">Cookie Policy</a>
           </div>
         </div>
       </div>
@@ -953,8 +1015,8 @@
   </footer>
   
   <!-- Home Button -->
-  <a href="index.html" class="home-btn" title="Home">
-    <svg viewBox="0 0 24 24">
+  <a href="index.html" class="home-btn" title="Home" aria-label="Back to Home">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
     </svg>
   </a>
@@ -1029,17 +1091,15 @@
       observer.observe(el);
     });
     
-    // Preloader animation
-    window.addEventListener('load', () => {
-      // Add class to body when page is fully loaded
+    // Make header elements visible immediately for better user experience
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add class to body when DOM is loaded
       document.body.classList.add('loaded');
       
-      // Trigger initial animations
-      setTimeout(() => {
-        document.querySelectorAll('.fade-in').forEach(el => {
-          el.classList.add('visible');
-        });
-      }, 300);
+      // Make header elements visible immediately
+      document.querySelectorAll('.page-header .fade-in').forEach(el => {
+        el.classList.add('visible');
+      });
     });
   </script>
 </body>
