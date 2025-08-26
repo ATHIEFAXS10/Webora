@@ -35,15 +35,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   
-  <!-- EmailJS Integration -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function() {
-      // Initialize EmailJS with your user ID
-      emailjs.init("YOUR_USER_ID");
-    })();
-  </script>
-  
   <style>
     /* ===== BASE STYLES ===== */
     :root {
@@ -1292,7 +1283,10 @@
         <div class="contact-form glass fade-in delay-1">
           <h3>Send a Message</h3>
           
-          <form id="contactForm">
+          <!-- Using Netlify Forms - 100% free without limits -->
+          <form id="contactForm" name="contact" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="contact" />
+            
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" id="name" name="name" required placeholder="Your name">
@@ -1439,83 +1433,35 @@
       }
     });
     
-    // Handle contact form submission
+    // Handle contact form submission with custom success notification
     if (contactForm) {
       contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+        // For Netlify Forms or non-Netlify hosted sites
+        // Allow the form to submit normally, but show the success message
+        // No need to prevent default as Netlify will handle the form submission
         
-        // Show loading state
-        submitButton.classList.add('loading');
-        submitButton.disabled = true;
+        if (submitButton) {
+          submitButton.classList.add('loading');
+          submitButton.disabled = true;
+        }
         
-        const nameInput = document.getElementById('name');
-        const emailInput = document.getElementById('email');
-        const messageInput = document.getElementById('message');
-        
-        // Prepare template parameters
-        const templateParams = {
-          from_name: nameInput.value,
-          from_email: emailInput.value,
-          message: messageInput.value,
-          to_email: 'hello.webora.info@gmail.com'
-        };
-        
-        // Use the direct email sending method - alternative to EmailJS
-        const sendDirectEmail = () => {
-          // Create form data for a direct email approach
-          const formData = new FormData();
-          formData.append('name', nameInput.value);
-          formData.append('email', emailInput.value);
-          formData.append('message', messageInput.value);
+        // Show success feedback (will appear after submission)
+        // For non-Netlify sites, this won't work as the page will reload
+        // But for Netlify sites with AJAX form submissions, this will show
+        setTimeout(function() {
+          if (formFeedback) {
+            formFeedback.classList.add('show');
+            
+            setTimeout(() => {
+              formFeedback.classList.remove('show');
+            }, 5000);
+          }
           
-          // Send data using fetch and a simple serverless function
-          fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'Accept': 'application/json'
-            }
-          })
-          .then(response => response.json())
-          .then(data => {
-            // Success handling
+          if (submitButton) {
             submitButton.classList.remove('loading');
             submitButton.disabled = false;
-            
-            // Show success message
-            if (formFeedback) {
-              formFeedback.textContent = "Message sent successfully!";
-              formFeedback.classList.add('show');
-              
-              // Hide notification after 5 seconds
-              setTimeout(() => {
-                formFeedback.classList.remove('show');
-              }, 5000);
-            }
-            
-            // Reset form
-            contactForm.reset();
-          })
-          .catch(error => {
-            // Error handling
-            console.error('Error:', error);
-            submitButton.classList.remove('loading');
-            submitButton.disabled = false;
-            
-            // Show error message
-            if (formError) {
-              formError.classList.add('show');
-              
-              // Hide notification after 5 seconds
-              setTimeout(() => {
-                formError.classList.remove('show');
-              }, 5000);
-            }
-          });
-        };
-        
-        // Use direct approach (much more reliable)
-        sendDirectEmail();
+          }
+        }, 1000);
       });
     }
     
