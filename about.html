@@ -141,6 +141,10 @@
       text-align: center;
     }
 
+    .text-left {
+      text-align: left;
+    }
+
     strong {
       font-weight: 500;
     }
@@ -221,7 +225,7 @@
       text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
     }
     
-    /* Header right section - added more gap */
+    /* Header right section - increased gap */
     .header-right {
       display: flex;
       align-items: center;
@@ -383,6 +387,13 @@
 
     .about-content {
       max-width: 600px;
+      background: var(--glass-bg); /* Added glass background */
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      box-shadow: var(--shadow-subtle);
     }
 
     .about-image {
@@ -457,6 +468,7 @@
       position: relative;
       padding-left: 30px;
       margin-bottom: var(--spacing-sm);
+      text-align: left; /* Changed from justify */
     }
 
     .about-list li::before {
@@ -477,6 +489,13 @@
       max-width: 800px;
       margin: 0 auto var(--spacing-xl);
       text-align: center;
+      background: var(--glass-bg); /* Added glass background */
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      box-shadow: var(--shadow-subtle);
     }
 
     /* ===== BUTTONS ===== */
@@ -684,6 +703,14 @@
       .about-list {
         text-align: left;
       }
+      
+      .about-list li {
+        padding-left: 30px;
+      }
+      
+      .about-list li::before {
+        display: block;
+      }
 
       /* Make the menu font even smaller on mobile */
       .full-nav a {
@@ -725,8 +752,42 @@
     /* Modified no-scroll to prevent layout shift */
     body.no-scroll {
       overflow: hidden;
-      /* This prevents layout shift by adding margin-right equal to scrollbar width */
+      /* This prevents layout shift by adding padding-right equal to scrollbar width */
       padding-right: 17px;
+    }
+    
+    /* Home button */
+    .home-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-subtle);
+      transition: var(--transition-fast);
+      z-index: 100;
+    }
+    
+    .home-btn:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: var(--shadow-strong);
+    }
+    
+    .home-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
     }
   </style>
 </head>
@@ -737,6 +798,7 @@
       <a href="index.html" class="logo">Webora</a>
       
       <div class="header-right">
+        <a href="index.html" class="header-btn">Home</a>
         <a href="about.html" class="header-btn">About Us</a>
         <a href="services.html" class="header-btn">Services</a>
         <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
@@ -889,6 +951,13 @@
       </div>
     </div>
   </footer>
+  
+  <!-- Home Button -->
+  <a href="index.html" class="home-btn" title="Home">
+    <svg viewBox="0 0 24 24">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>
+  </a>
 
   <script>
     // DOM Elements
@@ -900,7 +969,7 @@
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
     // Set current year in footer
-    document.getElementById('currentYear').textContent = "2023";
+    document.getElementById('currentYear').textContent = "2025";
     
     // Full-screen menu toggle with fix for layout shift
     menuToggle.addEventListener('click', () => {
@@ -908,7 +977,7 @@
       header.classList.toggle('expanded');
       fullNav.classList.toggle('active');
       
-      // Toggle no-scroll class on body
+      // Toggle no-scroll class on body with layout shift prevention
       if (document.body.classList.contains('no-scroll')) {
         document.body.classList.remove('no-scroll');
         document.body.style.paddingRight = '0';
